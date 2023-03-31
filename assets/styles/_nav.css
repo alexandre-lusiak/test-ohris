@@ -1,0 +1,99 @@
+/* pour les écrans de moins de 640px */
+@media screen and (max-width: 640px) {
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .form-input {
+      margin: 5px 0;
+      width: 100%;
+    }
+  
+    .form-button {
+      margin: 5px 0;
+      width: 100%;
+    }
+  
+    .form-message {
+      margin: 5px 0;
+      text-align: center;
+    }
+  }
+  
+  /* pour les écrans entre 640px et 960px */
+  @media screen and (min-width: 640px) and (max-width: 960px) {
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .date-a label{
+        text-align: center;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .form-input {
+      margin: 5px 0;
+      width: 100%;
+    }
+  
+    .form-button {
+      margin: 5px 0;
+      width: 100%;
+    }
+  
+    .form-message {
+      margin: 5px 0;
+      text-align: center;
+    }
+  }
+  
+  /* pour les écrans de plus de 960px */
+  @media screen and (min-width: 960px) {
+    .form-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .form-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .form-input {
+      margin: 0 5px;
+      width: auto;
+    }
+  
+    .form-button {
+      margin: 0 5px;
+      width: auto;
+    }
+  
+    .form-message {
+      margin-left: 5px;
+    }
+  }
+  

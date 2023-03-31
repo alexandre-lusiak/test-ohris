@@ -1,0 +1,21 @@
+<div>
+<div class="form-container">
+  {{ form_start(form) }}
+    <div class="form-row">
+    {{form_label(form.startDate)}}
+      {{ form_widget(form.startDate, {attr:{'class':'form-input date-a'}}) }}
+      {{form_label(form.endDate)}}
+      {{ form_widget(form.endDate, {attr:{'class':'form-input date-a'}}) }}
+      {{ form_widget(form.artist, {attr:{'class':'form-input'}}) }}
+      {{ form_widget(form.city, {attr:{'class':'form-input'}}) }}
+      <button type="submit" class="form-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  {{ form_end(form) }}
+</div>
+<div>
+  <p class="form-message">Concert sélectionné ({{events|length}})</p>
+  {% if events is empty %}
+    <p class="form-message">Aucun concert ne correspond aux critères de recherche.</p>
+  {% endif %}
+</div>
+</div>

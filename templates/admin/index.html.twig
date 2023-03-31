@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin
+{% endblock %}
+
+{% block body %}
+
+	<main class="admin-container">
+		<p class="text-left ml-5 text-xl ">Bienvenue sur l'administation de BAND-CONCERT !</p>
+		<span class="text-left ml-5 text-lg">Retrouvez,  créez , supprimez vos concerts</span>
+		<section>
+			{% include "./components/_formCreatEditEvent.html.twig" %}
+		</section>
+		<div class="ml-10">
+    Afficher 
+    <select id="paginationSelect" class=" rounded-md text-center" name="limit" onchange="this.form.submit()">
+	
+        <option value="5" {% if app.request.query.get('limit') == '5' %}selected{% endif %}>5</option>
+        <option value="15" {% if app.request.query.get('limit') == '15' %}selected{% endif %}>15</option>
+        <option value="30" {% if app.request.query.get('limit') == '30' %}selected{% endif %}>30</option>
+        <option value="40" {% if app.request.query.get('limit') == '40' %}selected{% endif %}>40</option>
+        <option value="50" {% if app.request.query.get('limit') == '50' %}selected{% endif %}>50</option>
+    </select>
+</div>
+		<div>
+			<ul class="pagination">
+			
+				<li class="m-3 p-1">
+					<a href="{{ (page > 1) ? '?page=' ~ (page - 1) : '' }}" class="text-blue-400 {{ (page == 1) ? 'disabled' : '' }}">
+						<i class="fa-solid fa-caret-left"></i>
+					</a>
+				</li>
+				{% set pages = ((total/limit)|round(0,'ceil')) %}
+				{% for item in 1..pages %}
+
+					<li class="m-3 p-1  {{ (page == item) ? " bg-blue-400 rounded-md text-green-200 shadow-xl" : " bg-white rounded-md text-white-200 shadow-xl"}} ">
+						<a href="?page={{item}}">{{item}}</a>
+					</li>
+				{% endfor %}
+				<li class="m-3 p-1">
+						<a href="{{ (page < pages) ? '?page=' ~ ( page + 1 ) : '' }}" class="text-blue-400 {{ (page == pages) ? 'disabled' : '' }}">
+						<i class="fa-solid fa-caret-right"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<section class="m-10">
+			<div class="shadow-md sm:rounded-lg">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-scroll">
+					<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
+						<tr>
+							<th scope="col" class="px-6 py-3">
+								id
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Artiste
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Ville
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Date
+							</th>
+							<th scope="col" class="px-6 py-3">
+								options
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for event in events %}
+							<tr id="event-{{ event.id }}" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center
+																		      {% if event.eventDate|date('Y-m-d') < 'now'|date('Y-m-d') %}
+																											        hover:bg-red-400  hover:text-slate-800
+																											    {% elseif event.eventDate|date('Y-m-d') == 'now'|date('Y-m-d') %}
+																											        hover:bg-orange-200 hover:text-slate-800
+																											    {% else %}
+																											        hover:bg-green-200 hover:text-slate-800
+																											    {% endif %}">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									{{ event.id }}
+								</th>
+								<td class="px-6 py-4">
+									{{ event.artist }}
+								</td>
+								<td class="px-6 py-4">
+									{{ event.city }}
+								</td>
+								<td class="px-6 py-4">
+									{{ event.eventDate|date("d/m/Y") }} 
+									
+								</td>
+								<td class="px-6 py-4 flex flex-col ">
+									<button type="button" class="btn-delete mb-5" data-id="{{ event.id }}">
+										<i class="fa-solid fa-trash text-red-700 "></i>
+									</button>
+									<a href="{{ path('app_edit', {'id': event.id}) }}">
+										<i class="fa-solid fa-pencil mt-5" style="color: #1de734;"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<div id="deleteModal" class="modal">
+					<div class="modal-content">
+						<h2>Confirmer la suppression
+							<i class="fa-solid fa-circle-exclamation text-red-700"></i>
+						</h2>
+						<p>Êtes-vous sûr de vouloir supprimer cet événement?</p>
+						<i class="fa-solid fa-hexagon-exclamation "></i>
+						<div class="modal-buttons flex justify-around">
+							<button id="confirm-delete" class="btn-delete text-red-700">Supprimer</button>
+							<button id="cancel-delete" class="btn-cancel">Annuler</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<footer class="footer-admin flex justify-around md:flex-row sm:flex-col  md:justify-around md:flex-wrap mt-64 p-10">
+			<h1 class="text-2xl">BAND CONCERT</h1>
+			<ul class="flex flex-col text-center text-gray-700 ">
+				<li>
+					<a href={{path('app_home')}}>Administration</a>
+				</li>
+				<li>
+					<a href={{path('app_home')}}>Home</a>
+				</li>
+				</ul>
+		</footer>
+			</main>
+		{% endblock %}

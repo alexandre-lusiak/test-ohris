@@ -1,0 +1,16 @@
+
+
+.form-event{
+   text-align: center;
+   background-color: #ffffffff;
+    border :var(--border);
+    border-radius: var(--border-radius);
+    width: 500px;
+    margin: auto;
+}
+
+.footer-admin{
+    height: 100px;
+    width: 100%;
+}
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" rel="stylesheet"/>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css.map">
+        <script src="https://kit.fontawesome.com/0bf910818a.js" crossorigin="anonymous"></script>
+ 
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('datepicker') }}
+
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('datepicker') }}
+			{{ encore_entry_script_tags('navigation') }}
+            {{ encore_entry_script_tags('delete-event.js') }}
+			{{ encore_entry_script_tags('limit-event.js') }}
+            <script src="https://kit.fontawesome.com/0bf910818a.js" crossorigin="anonymous"></script>
+    		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="../path/to/flowbite/dist/datepicker.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/datepicker.min.js"></script>
+		{% endblock %}
+</head>
+<body>
+	<header class="px-20 align-items-center">
+		<ul class="d-flex flex-row flex-fill justify-around">
+			<li>
+				<a class="align-items-center mr-20 nav-item {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" href="{{ path('app_home') }}">
+					<span class="text-xl">BAND CONCERT</span>
+				</a>
+			</li>
+			<li>
+				<a class="nav-item {% if app.request.attributes.get('_route') == 'app_admin' %}active{% endif %} text-xl" href="{{ path('app_admin') }}">Administration</a>
+			</li>
+		</ul>
+</header>
+{% block body %}
+{% endblock %}
+
+</body>
+</html>

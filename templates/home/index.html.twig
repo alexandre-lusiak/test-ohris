@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h1 class="text-xl">Bienvenue sur band-concert</h1>
+		<p class="text-center">Ici vous trouverez vos artistes préféré dans vos villes préférés !</p>
+		<setion>
+			{{ include("./components/_searchFormFilter.html.twig") }}
+		</section>
+		<div>
+			<ul class="pagination">
+				<li class="m-3 p-1">
+					<a href="{{ (page > 1) ? '?page=' ~ (page - 1) : '' }}" class="text-blue-400 {{ (page == 1) ? 'disabled' : '' }}">
+						<i class="fa-solid fa-caret-left"></i>
+					</a>
+				</li>
+				{% set pages = ((total/limit)|round(0,'ceil')) %}
+				{% for item in 1..pages %}
+
+					<li class="m-3 p-1  {{ (page == item) ? " bg-blue-400 rounded-md text-white shadow-xl" : " bg-white rounded-md text-white-200 shadow-xl"}} ">
+						<a href="?page={{item}}">{{item}}</a>
+					</li>
+				{% endfor %}
+					<li class="m-3 p-1">
+						<a href="{{ (page < pages) ? '?page=' ~ ( page + 1 ) : '' }}" class="text-blue-400 {{ (page == pages) ? 'disabled' : '' }}">
+						<i class="fa-solid fa-caret-right"></i>
+						</a>
+					</li>
+			</ul>
+		</div>
+		<section class="m-10">
+			<div class="relative overflow-x-auto shadow-md sm:rounded-lg m-28">
+				<table class="w-full text-sm text-left  text-black-500 dark:text-gray-400  border-b overflow-hidden">
+					<thead class="text-xs text-gray-700 uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400 text-center">
+						<tr>
+							<th scope="col" class="px-6 py-3">
+								Artiste
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Date
+							</th>
+							<th scope="col" class="px-6 py-3">
+								Ville
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in events %}
+							<tr id="event-{{ event.id }}" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-#3498DB hover:text-white rowda-one text-center">
+								
+								<td class="px-6 py-4">
+									{{ event.artist }}
+								</td>
+								<td class="px-6 py-4">
+									{{ event.city }}
+								</td>
+								<td class="px-6 py-4">
+									{{ event.eventDate|date("d/m/Y") }} 
+									
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				
+
+			</div>
+		</section>
+		{% set eventLenght = (events|length) %}
+		<footer  class="footer-admin flex justify-around md:flex-row sm:flex-col p-20  md:justify-around md:flex-wrap mt-96 {{ (eventLenght < 4) ? 'abosulte bottom-0 w-full h-32' : '' }} ">
+			<h1 class="text-2xl">BAND CONCERT</h1>
+			<ul class="flex flex-col text-center text-bold ">
+				<li>
+					<a  href={{path('app_admin')}}>Admin</a>
+				</li>
+				<li>
+					<a href={{path('app_home')}}>Home</a>
+				</li>
+				</ul>
+		</footer>
+		</main>
+	{% endblock %}
